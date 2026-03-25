@@ -1,0 +1,15 @@
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\bin\Debug\net9.0\Proyecto PPO Programacion.exe
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\bin\Debug\net9.0\Proyecto PPO Programacion.deps.json
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\bin\Debug\net9.0\Proyecto PPO Programacion.runtimeconfig.json
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\bin\Debug\net9.0\Proyecto PPO Programacion.dll
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\bin\Debug\net9.0\Proyecto PPO Programacion.pdb
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\obj\Debug\net9.0\Proyecto PPO Programacion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\obj\Debug\net9.0\Proyecto PPO Programacion.AssemblyInfoInputs.cache
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\obj\Debug\net9.0\Proyecto PPO Programacion.AssemblyInfo.cs
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\obj\Debug\net9.0\Proyecto PPO Programacion.csproj.CoreCompileInputs.cache
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\obj\Debug\net9.0\Proyecto PPO Programacion.sourcelink.json
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\obj\Debug\net9.0\Proyecto PPO Programacion.dll
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\obj\Debug\net9.0\refint\Proyecto PPO Programacion.dll
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\obj\Debug\net9.0\Proyecto PPO Programacion.pdb
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\obj\Debug\net9.0\Proyecto PPO Programacion.genruntimeconfig.cache
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\obj\Debug\net9.0\ref\Proyecto PPO Programacion.dll
