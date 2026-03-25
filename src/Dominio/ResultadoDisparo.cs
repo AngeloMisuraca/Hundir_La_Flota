@@ -1,8 +1,8 @@
 class ResultadoDisparo
 {
-    public bool impacto;
-    public bool hundido;
-    public int fila;
+    bool impacto;
+    bool hundido;
+    int fila;
     int columna;
 
     public ResultadoDisparo(bool impacto, bool hundido, int fila, int columna)
