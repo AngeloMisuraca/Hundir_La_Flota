@@ -11,7 +11,7 @@ public class Barco
         this.impactos = impactos;
     }
 
-    public static void RecibirImpacto()
+    public void RecibirImpacto()
     {
         int impacto = 0;
         impacto++;
@@ -19,15 +19,6 @@ public class Barco
 
     public bool EstaHundido()
     {
-        if (impactos >= tamanio)
-        {
-            bool EstaHundido = true;
-            return true;
-        }
-        else
-        {
-            bool EstaHundido = false;
-            return false;
-        }
+        return impactos >= tamanio;
     }
 }

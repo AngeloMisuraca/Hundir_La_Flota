@@ -4,6 +4,7 @@ public class Casilla
     public int columna { get; set; }
     public bool disparada { get; set; }
     public List<Barco> barcos { get; set; }
+    public Barco barco { get; set; }
 
     public Casilla(int fila, int columna, bool disparada)
     {

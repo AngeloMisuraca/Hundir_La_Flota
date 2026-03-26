@@ -125,8 +125,35 @@ class Tablero
         return true;
     }
 
-    public void Disparar(int fila, int columna)
+    public ResultadoDisparo Disparar(int fila, int columna)
     {
-        
+        Casilla casilla = casillas[fila, columna];
+        ResultadoDisparo resultado = new ResultadoDisparo();
+
+        if (casilla.disparada)
+        {
+            resultado.EsYaDisparado = true;
+            return resultado;
+        }
+
+        casilla.disparada = true;
+
+        if (casilla.EstaVacia())
+        {
+            resultado.EsAgua = true;
+            return resultado;
+        }
+
+        casilla.barco.RecibirImpacto();
+
+        if (casilla.barco.EstaHundido())
+        {
+            resultado.EsHundido = true;
+        }
+        else
+        {
+            resultado.EsImpacto = true;
+        }
+        return resultado;
     }
 }
