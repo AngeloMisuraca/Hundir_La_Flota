@@ -1,22 +1,27 @@
 public class Casilla
 {
-    public int fila { get; set; }
-    public int columna { get; set; }
-    public bool disparada { get; set; }
-    public List<Barco> barcos { get; set; }
-    public Barco barco { get; set; }
+    // Posicion fija de la casilla dentro del tablero.
+    public int Fila { get; }
+    public int Columna { get; }
+
+    // Indica si ya se disparo a esta casilla.
+    public bool Disparada { get; private set; }
+
+    // Guarda el barco que ocupa esta casilla. Si es null, esta vacia.
+    public Barco? Barco { get; private set; }
 
     public Casilla(int fila, int columna, bool disparada)
     {
-        this.fila = fila;
-        this.columna = columna;
-        this.disparada = disparada;
-        this.barcos = new List<Barco>();
+        // Guardamos la posicion y el estado inicial.
+        Fila = fila;
+        Columna = columna;
+        Disparada = disparada;
     }
 
     public bool EstaVacia()
     {
-        if (barcos.Count == 0)
+        // Devuelve true cuando no hay ningun barco en esta casilla.
+        if (Barco == null)
         {
             return true;
         }
@@ -28,7 +33,8 @@ public class Casilla
 
     public bool EsImpacto()
     {
-        if (disparada == true && barcos.Count > 0)
+        // Hay impacto si se ha disparado y habia un barco en esa casilla.
+        if (Disparada == true && Barco != null)
         {
             return true;
         }
@@ -40,7 +46,8 @@ public class Casilla
 
     public bool EsAgua()
     {
-        if (disparada == true && barcos.Count == 0)
+        // Hay agua si se ha disparado y la casilla estaba vacia.
+        if (Disparada == true && Barco == null)
         {
             return true;
         }
@@ -48,5 +55,17 @@ public class Casilla
         {
             return false;
         }
+    }
+
+    public void AsignarBarco(Barco barco)
+    {
+        // Asociamos esta casilla a un barco.
+        Barco = barco;
+    }
+
+    public void MarcarDisparo()
+    {
+        // Marcamos que esta casilla ya ha sido atacada.
+        Disparada = true;
     }
 }

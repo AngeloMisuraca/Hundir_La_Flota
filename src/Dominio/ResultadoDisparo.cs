@@ -1,8 +1,8 @@
-public class ResultadoDisparo
+// Este enum representa los cuatro resultados posibles de un disparo.
+public enum ResultadoDisparo
 {
-    public bool EsAgua { get; set; }
-    public bool EsImpacto { get; set; }
-    public bool EsHundido { get; set; }
-    public bool EsYaDisparado { get; set; }
+    Agua,
+    Impacto,
+    Hundido,
+    YaDisparado
 }
-

@@ -1,19 +1,17 @@
 class Flota
 {
-    public List<Barco> barcos;
-    public Flota(List<Barco> barcos)
+    public static List<Barco> CrearFlota()
     {
-        this.barcos = new List<Barco>();
-    }
+        // Esta lista define la flota completa del juego.
+        List<Barco> barcos = new List<Barco>();
 
-    public void fabricaBarcos(Barco barco)
-    {
-        string[] nombres = { "🚢 Portaaviones", "🛳️ Acorazado", "⛴️ Destructor", "🚤 submarino", "⛵ Patrullera" };
-        int[] tamaños = { 5, 4, 3, 3, 2 };
+        // Creamos un barco de cada tipo.
+        barcos.Add(new Barco("Portaaviones", 5, 0));
+        barcos.Add(new Barco("Acorazado", 4, 0));
+        barcos.Add(new Barco("Destructor", 3, 0));
+        barcos.Add(new Barco("Submarino", 3, 0));
+        barcos.Add(new Barco("Patrullera", 2, 0));
 
-        for (int i = 0; i < 5; i++)
-        {
-            barcos.Add(new Barco(nombres[i], tamaños[i], impactos: 0));
-        }
+        return barcos;
     }
 }

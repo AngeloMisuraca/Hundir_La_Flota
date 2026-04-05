@@ -13,3 +13,8 @@ C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\o
 C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\obj\Debug\net9.0\Proyecto PPO Programacion.pdb
 C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\obj\Debug\net9.0\Proyecto PPO Programacion.genruntimeconfig.cache
 C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\obj\Debug\net9.0\ref\Proyecto PPO Programacion.dll
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\temp_build\Proyecto PPO Programacion.exe
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\temp_build\Proyecto PPO Programacion.deps.json
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\temp_build\Proyecto PPO Programacion.runtimeconfig.json
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\temp_build\Proyecto PPO Programacion.dll
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\temp_build\Proyecto PPO Programacion.pdb
