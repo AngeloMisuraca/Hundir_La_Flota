@@ -58,6 +58,13 @@ class GestorGuardado
         }
     }
 
+    public void EliminarTodasLasPartidas()
+    {
+        // En este proyecto solo usamos un archivo de partida, asi que eliminar todas
+        // las partidas significa borrar ese archivo si existe.
+        EliminarGuardado();
+    }
+
     public bool ExistePartidaGuardada()
     {
         // Devuelve true si el archivo de guardado esta en disco.

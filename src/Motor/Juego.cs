@@ -37,54 +37,87 @@ class Juego
 
     public void Iniciar()
     {
-        // Repetimos el menu hasta elegir una opcion valida de juego o salir.
-        int opcion = 0;
+        // Repetimos el menu principal hasta que el usuario elija salir del programa.
+        bool salirDelPrograma = false;
 
-        while (opcion != 1 && opcion != 2 && opcion != 5)
+        while (salirDelPrograma == false)
         {
-            opcion = renderizador.MostrarBienvenida(gestorGuardado.ExistePartidaGuardada());
+            int opcion = 0;
 
-            // Mostramos records si el usuario elige esa opcion.
-            if (opcion == 3)
+            // Repetimos el menu hasta elegir una opcion valida de juego o salir.
+            while (opcion != 1 && opcion != 2 && opcion != 5)
             {
-                marcador.Cargar();
-                renderizador.MostrarRecords(marcador.ObtenerEntradas());
+                opcion = renderizador.MostrarBienvenida(gestorGuardado.ExistePartidaGuardada());
+
+                // Mostramos records si el usuario elige esa opcion.
+                if (opcion == 3)
+                {
+                    marcador.Cargar();
+                    renderizador.MostrarRecords(marcador.ObtenerEntradas());
+                }
+                else if (opcion == 4)
+                {
+                    MostrarOpciones();
+                }
+                else if (opcion == 5)
+                {
+                    salirDelPrograma = true;
+                }
             }
-            // La opcion 4 queda reservada para futuras opciones.
-            else if (opcion == 4)
-            {
-                renderizador.EsperarVolverAlMenu();
-            }
-            else if (opcion == 5)
+
+            if (salirDelPrograma)
             {
                 return;
             }
-        }
 
-        // Si se elige continuar, intentamos cargar una partida guardada.
-        if (opcion == 2)
-        {
-            bool partidaCargada = CargarPartida();
-
-            if (partidaCargada == false)
+            // Si se elige continuar, intentamos cargar una partida guardada.
+            if (opcion == 2)
             {
-                renderizador.MostrarError("No hay ninguna partida guardada.");
-                return;
+                bool partidaCargada = CargarPartida();
+
+                if (partidaCargada == false)
+                {
+                    renderizador.MostrarError("No hay ninguna partida guardada.");
+                    renderizador.EsperarVolverAlMenu();
+                    continue;
+                }
+
+                // Avisamos de que la partida guardada se ha cargado y vamos a volver al tablero.
+                renderizador.MostrarMensaje("Cargando partida guardada...");
+            }
+            else
+            {
+                // Si no, empezamos una partida nueva.
+                Colocacion();
+            }
+
+            // Una vez preparada la partida, jugamos.
+            bool partidaTerminada = Batalla();
+
+            // Solo mostramos el final si realmente se ha terminado la partida.
+            if (partidaTerminada)
+            {
+                Terminado();
             }
         }
-        else
-        {
-            // Si no, empezamos una partida nueva.
-            Colocacion();
-        }
+    }
 
-        // Una vez preparada la partida, jugamos y mostramos el final.
-        Batalla();
-        Terminado();
+    void ReiniciarEstadoPartida()
+    {
+        // Preparamos todos los objetos para empezar una partida nueva desde cero.
+        jugador = new Jugador(configJuego.NombreJugador, new Tablero(false, 5));
+        cpu = new Cpu("CPU", new Tablero(false, 5));
+        faseActual = FaseJuego.Colocacion;
+        turnoJugador = true;
+        flotaJugador = new List<Barco>();
+        flotaCpu = new List<Barco>();
     }
 
     public void Colocacion()
     {
+        // Antes de colocar barcos, dejamos la partida en un estado limpio.
+        ReiniciarEstadoPartida();
+
         // Creamos una flota para el jugador y otra para la CPU.
         flotaJugador = Flota.CrearFlota();
         flotaCpu = Flota.CrearFlota();
@@ -95,24 +128,59 @@ class Juego
 
         // Al terminar, pasamos a la fase de batalla y guardamos.
         faseActual = FaseJuego.Batalla;
-        GuardarPartida();
     }
 
-    public void Batalla()
+    void MostrarOpciones()
+    {
+        // Repetimos el submenu hasta que el usuario quiera volver al menu principal.
+        bool volverAlMenuPrincipal = false;
+
+        while (volverAlMenuPrincipal == false)
+        {
+            int opcion = renderizador.MostrarMenuOpciones();
+
+            if (opcion == 1)
+            {
+                // Si existe una partida guardada, la eliminamos y avisamos al usuario.
+                gestorGuardado.EliminarTodasLasPartidas();
+                renderizador.MostrarMensaje("Todas las partidas guardadas han sido eliminadas.");
+                renderizador.EsperarVolverAlMenu();
+            }
+            else if (opcion == 2)
+            {
+                // Mostramos los nombres de los barcos definidos para el juego.
+                List<Barco> barcos = Flota.CrearFlota();
+                renderizador.MostrarNombresBarcos(barcos);
+            }
+            else if (opcion == 3)
+            {
+                volverAlMenuPrincipal = true;
+            }
+            else
+            {
+                renderizador.MostrarError("Opcion no valida.");
+                renderizador.EsperarVolverAlMenu();
+            }
+        }
+    }
+
+    public bool Batalla()
     {
         // Si no estamos en la fase correcta, no hacemos nada.
         if (faseActual != FaseJuego.Batalla)
         {
-            return;
+            return false;
         }
 
         // El bucle termina cuando uno de los dos tableros se queda sin barcos.
         while (jugador.Tablero.TodosHundidos == false && cpu.Tablero.TodosHundidos == false)
         {
+            // En cada vuelta mostramos el tablero actual para que siempre se vea el estado real de la partida.
+            renderizador.MostrarTablerosBatalla(jugador, cpu.Tablero);
+
             if (turnoJugador)
             {
-                // Mostramos los tableros y pedimos disparo al jugador.
-                renderizador.MostrarTablerosBatalla(jugador, cpu.Tablero);
+                // Si es el turno del jugador, pedimos su disparo.
                 bool turnoTerminado = false;
 
                 while (turnoTerminado == false)
@@ -133,24 +201,38 @@ class Juego
                         renderizador.MostrarResultadoDisparo(resultadoJugador, disparoJugador.fila, disparoJugador.columna);
                         turnoTerminado = true;
                         turnoJugador = false;
-                        GuardarPartida();
                     }
                 }
             }
-            else
+
+            // Si despues del disparo del jugador la partida termina, salimos sin turno de CPU.
+            if (cpu.Tablero.TodosHundidos)
             {
-                // La CPU elige objetivo, dispara y mostramos el resultado.
-                Casilla objetivoCpu = cpu.ElegirObjetivo();
-                ResultadoDisparo resultadoCpu = jugador.Tablero.Disparar(objetivoCpu.Fila, objetivoCpu.Columna);
-                cpu.RegistrarDisparo(resultadoCpu);
-                renderizador.MostrarDisparoCpu(resultadoCpu, objetivoCpu.Fila, objetivoCpu.Columna);
-                turnoJugador = true;
-                GuardarPartida();
-                renderizador.EsperarContinuar();
+                break;
             }
+
+            // Cuando ambos han disparado, termina la ronda y entonces preguntamos si se quiere guardar.
+            Casilla objetivoCpu = cpu.ElegirObjetivo();
+            ResultadoDisparo resultadoCpu = jugador.Tablero.Disparar(objetivoCpu.Fila, objetivoCpu.Columna);
+            cpu.RegistrarDisparo(resultadoCpu);
+            renderizador.MostrarDisparoCpu(resultadoCpu, objetivoCpu.Fila, objetivoCpu.Columna);
+            turnoJugador = true;
+
+            bool quiereSeguirJugando = PreguntarSiQuiereGuardarYSeguir();
+
+            if (quiereSeguirJugando == false)
+            {
+                renderizador.MostrarMensaje("Saliendo al menu principal...");
+                renderizador.EsperarVolverAlMenu();
+                faseActual = FaseJuego.Colocacion;
+                return false;
+            }
+
+            renderizador.EsperarContinuar();
         }
 
         faseActual = FaseJuego.Terminado;
+        return true;
     }
 
     public void Terminado()
@@ -219,6 +301,24 @@ class Juego
         // Creamos un estado serializable y lo enviamos al gestor de guardado.
         EstadoPartida estado = CrearEstadoPartida();
         gestorGuardado.Guardar(estado);
+    }
+
+    bool PreguntarSiQuiereGuardarYSeguir()
+    {
+        // Al terminar una ronda completa, preguntamos si quiere guardar y volver al menu.
+        bool quiereGuardar = renderizador.PedirGuardarPartida();
+
+        if (quiereGuardar)
+        {
+            GuardarPartida();
+            renderizador.MostrarMensaje("Partida guardada correctamente.");
+            return false;
+        }
+        else
+        {
+            // Si no quiere guardar, seguimos la partida exactamente igual y sin guardar.
+            return true;
+        }
     }
 
     EstadoPartida CrearEstadoPartida()

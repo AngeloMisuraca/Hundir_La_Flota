@@ -68,6 +68,40 @@ class Renderizador
         }
     }
 
+    public int MostrarMenuOpciones()
+    {
+        // Limpiamos la pantalla y mostramos un submenu con opciones sencillas.
+        LimpiarPantalla();
+        Console.WriteLine("Opciones:");
+        Console.WriteLine("1. Eliminar todas las partidas");
+        Console.WriteLine("2. Mostrar nombres de los barcos");
+        Console.WriteLine("3. Volver al menu principal");
+        Console.Write("Elige una opcion: ");
+
+        // Leemos la opcion elegida por el usuario.
+        string opcionTexto = Console.ReadLine() ?? "3";
+        int opcion = 3;
+        int.TryParse(opcionTexto, out opcion);
+        return opcion;
+    }
+
+    public void MostrarNombresBarcos(List<Barco> barcos)
+    {
+        // Mostramos una lista simple con los nombres y tamanios de la flota del juego.
+        LimpiarPantalla();
+        Console.WriteLine("Nombres de los barcos:");
+        Console.WriteLine();
+
+        for (int i = 0; i < barcos.Count; i++)
+        {
+            Console.WriteLine((i + 1) + ". " + barcos[i].Nombre + " - Tamano: " + barcos[i].Tamanio);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Pulsa Enter para volver al menu de opciones...");
+        Console.ReadLine();
+    }
+
     public void MostrarTablerosBatalla(Jugador jugador, Tablero enemigo)
     {
         // Letras para etiquetar las filas del tablero.
@@ -254,6 +288,30 @@ class Renderizador
         }
     }
 
+    public bool PedirGuardarPartida()
+    {
+        // Al acabar una ronda, preguntamos si se quiere guardar y salir al menu principal.
+        Console.Write("Quieres guardar y salir al menu principal? (S/N): ");
+        string texto = (Console.ReadLine() ?? "").Trim().ToUpper();
+
+        // Repetimos hasta que el usuario escriba una respuesta valida.
+        while (texto != "S" && texto != "SI" && texto != "N" && texto != "NO")
+        {
+            MostrarError("Respuesta no valida. Escribe S o N.");
+            Console.Write("Quieres guardar y salir al menu principal? (S/N): ");
+            texto = (Console.ReadLine() ?? "").Trim().ToUpper();
+        }
+
+        if (texto == "S" || texto == "SI")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public (int fila, int columna) PedirCoordenada()
     {
         // Pedimos una coordenada de disparo.
@@ -407,6 +465,14 @@ class Renderizador
     {
         // Los errores se muestran en rojo.
         Console.ForegroundColor = Colores.error;
+        Console.WriteLine(mensaje);
+        Console.ResetColor();
+    }
+
+    public void MostrarMensaje(string mensaje)
+    {
+        // Los mensajes informativos se muestran en verde para diferenciarlos de los errores.
+        Console.ForegroundColor = Colores.exito;
         Console.WriteLine(mensaje);
         Console.ResetColor();
     }

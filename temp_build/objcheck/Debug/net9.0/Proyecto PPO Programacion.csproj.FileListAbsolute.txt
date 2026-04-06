@@ -1,0 +1,5 @@
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\temp_build\objcheck\Debug\net9.0\Proyecto PPO Programacion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\temp_build\objcheck\Debug\net9.0\Proyecto PPO Programacion.AssemblyInfoInputs.cache
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\temp_build\objcheck\Debug\net9.0\Proyecto PPO Programacion.AssemblyInfo.cs
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\temp_build\objcheck\Debug\net9.0\Proyecto PPO Programacion.csproj.CoreCompileInputs.cache
+C:\Users\angel\Desktop\PROYECTOS VSCODE\PROGRAMACION\Proyecto PPO Programacion\temp_build\objcheck\Debug\net9.0\Proyecto PPO Programacion.sourcelink.json

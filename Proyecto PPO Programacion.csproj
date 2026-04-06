@@ -8,4 +8,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <!-- Excluimos archivos temporales de compilaciones anteriores para evitar clases y atributos duplicados. -->
+    <Compile Remove="temp_build\**\*.cs" />
+  </ItemGroup>
+
 </Project>
