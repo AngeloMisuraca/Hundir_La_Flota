@@ -1,10 +1,10 @@
 class Tablero
 {
-    // Estado general del tablero.
+    // Aqui guardo el estado general del tablero.
     bool todosHundidos;
     int barcosRestantes;
 
-    // Lista de barcos colocados y matriz de casillas de 10 x 10.
+    // Aqui van los barcos y las 100 casillas.
     List<Barco> barcos = new List<Barco>();
     Casilla[,] casillas = new Casilla[10, 10];
 
@@ -26,17 +26,17 @@ class Tablero
 
     public List<Barco> ObtenerBarcos()
     {
-        // Devuelve la lista de barcos del tablero.
+        // Devuelvo los barcos del tablero.
         return barcos;
     }
 
     public Tablero(bool todosHundidos, int barcosRestantes)
     {
-        // Guardamos el estado recibido.
+        // Guardo el estado inicial.
         this.todosHundidos = todosHundidos;
         this.barcosRestantes = barcosRestantes;
 
-        // Creamos las 100 casillas del tablero.
+        // Creo las 100 casillas del tablero.
         for (int fila = 0; fila < 10; fila++)
         {
             for (int columna = 0; columna < 10; columna++)
@@ -48,7 +48,7 @@ class Tablero
 
     public bool FlotaHundida(Barco EstaHundido)
     {
-        // Este metodo comprueba si todos los barcos menos uno ya estan hundidos.
+        // Compruebo si solo quedaria ese barco.
         foreach (Barco barco in barcos)
         {
             if (barco != EstaHundido)
@@ -61,7 +61,7 @@ class Tablero
 
     public int ContarBarcosRestantes(Barco EstaHundido)
     {
-        // Cuenta cuantos barcos quedan sin considerar el barco recibido.
+        // Cuenta cuantos barcos quedan sin contar ese.
         int Contador = 0;
 
         foreach (Barco barco in barcos)
@@ -73,21 +73,22 @@ class Tablero
         }
         return Contador;
     }
+
     public Casilla ObtenerCasilla(int fila, int columna)
     {
-        // Devuelve una casilla concreta del tablero.
+        // Devuelve la casilla que toque.
         return casillas[fila, columna];
     }
 
     public bool PuedeColocar(Barco barco, int fila, int columna, bool esHorizontal)
     {
-        // Recorremos todas las casillas que ocuparia el barco.
+        // Reviso todas las casillas que pisaria el barco.
         for (int i = 0; i < barco.Tamanio; i++)
         {
             int filaActual = fila;
             int columnaActual = columna;
 
-            // Calculamos la posicion real segun la orientacion.
+            // Ajusto fila y columna segun la direccion.
             if (esHorizontal)
             {
                 columnaActual = columna + i;
@@ -97,26 +98,27 @@ class Tablero
                 filaActual = fila + i;
             }
 
-            // Si alguna parte se sale del tablero, no se puede colocar.
+            // Si se sale del tablero, no vale.
             if (filaActual < 0 || filaActual >= 10 || columnaActual < 0 || columnaActual >= 10)
             {
                 return false;
             }
 
-            // Revisamos alrededor de cada casilla para aplicar la regla de adyacencia.
+            // Tambien miro alrededor para que no toque otro barco.
             for (int despFila = -1; despFila <= 1; despFila++)
             {
                 for (int despColumna = -1; despColumna <= 1; despColumna++)
                 {
                     int nuevaFila = filaActual + despFila;
                     int nuevaColumna = columnaActual + despColumna;
-                    // Si la coordenada vecina se sale del tablero, la ignoramos.
+
+                    // Si se sale, esa casilla no me importa.
                     if (nuevaFila < 0 || nuevaFila >= 10 || nuevaColumna < 0 || nuevaColumna >= 10)
                     {
                         continue;
                     }
 
-                    // Si hay un barco cerca, no se puede colocar.
+                    // Si hay un barco cerca, esta posicion no sirve.
                     if (casillas[nuevaFila, nuevaColumna].EstaVacia() != true)
                     {
                         return false;
@@ -129,22 +131,22 @@ class Tablero
 
     public bool ColocarBarco(Barco barco, int fila, int columna, bool esHorizontal)
     {
-        // Si la posicion no es valida, salimos.
+        // Si no se puede poner ahi, salgo.
         if (PuedeColocar(barco, fila, columna, esHorizontal) == false)
         {
             return false;
         }
 
-        // Limpiamos las casillas anteriores del barco por si se reutiliza.
+        // Limpio las casillas anteriores por si el barco ya se uso antes.
         barco.Casillas.Clear();
 
-        // Colocamos cada parte del barco dentro del tablero.
+        // Voy colocando cada parte del barco.
         for (int i = 0; i < barco.Tamanio; i++)
         {
             int filaActual = fila;
             int columnaActual = columna;
 
-            // Calculamos la casilla exacta segun la orientacion.
+            // Ajusto la casilla segun si va horizontal o vertical.
             if (esHorizontal)
             {
                 columnaActual = columna + i;
@@ -154,12 +156,12 @@ class Tablero
                 filaActual = fila + i;
             }
 
-            // Asociamos la casilla con el barco.
+            // Uno la casilla con el barco.
             casillas[filaActual, columnaActual].AsignarBarco(barco);
             barco.Casillas.Add(casillas[filaActual, columnaActual]);
         }
 
-        // Añadimos el barco a la lista si todavia no estaba guardado.
+        // Si ese barco no estaba metido todavia, lo guardo.
         if (barcos.Contains(barco) == false)
         {
             barcos.Add(barco);
@@ -170,34 +172,34 @@ class Tablero
 
     public ResultadoDisparo Disparar(int fila, int columna)
     {
-        // Obtenemos la casilla a la que se quiere disparar.
+        // Cojo la casilla a la que se dispara.
         Casilla casilla = casillas[fila, columna];
 
-        // Si ya se habia disparado ahi, devolvemos ese resultado.
+        // Si ahi ya se disparo antes, lo devuelvo tal cual.
         if (casilla.Disparada)
         {
             return ResultadoDisparo.YaDisparado;
         }
 
-        // Marcamos el disparo.
+        // Marco el disparo.
         casilla.MarcarDisparo();
 
-        // Si la casilla esta vacia, el disparo cae al agua.
+        // Si no habia barco, es agua.
         if (casilla.EstaVacia())
         {
             return ResultadoDisparo.Agua;
         }
 
-        // Si hay barco, sumamos un impacto.
+        // Si habia barco, sumo el impacto.
         Barco barcoImpactado = casilla.Barco!;
         barcoImpactado.RecibirImpacto();
 
-        // Si el barco ya no aguanta mas impactos, queda hundido.
+        // Si ya llego al limite, se hunde.
         if (barcoImpactado.EstaHundido())
         {
             barcosRestantes--;
 
-            // Si no quedan barcos, toda la flota esta hundida.
+            // Si no queda ninguno, la partida en ese tablero acaba.
             if (barcosRestantes <= 0)
             {
                 barcosRestantes = 0;
@@ -214,7 +216,7 @@ class Tablero
 
     public static Tablero CrearDesdeEstado(TableroGuardado estado)
     {
-        // Primero calculamos cuantos barcos quedan vivos.
+        // Primero cuento cuantos barcos siguen vivos.
         int barcosRestantes = 0;
 
         foreach (BarcoGuardado barcoGuardado in estado.Barcos)
@@ -225,11 +227,11 @@ class Tablero
             }
         }
 
-        // Con esa informacion creamos el tablero base.
+        // Con eso creo el tablero base.
         bool todosHundidos = barcosRestantes == 0;
         Tablero tablero = new Tablero(todosHundidos, barcosRestantes);
 
-        // Reconstruimos cada barco y lo volvemos a colocar en sus casillas.
+        // Vuelvo a montar los barcos en sus casillas.
         foreach (BarcoGuardado barcoGuardado in estado.Barcos)
         {
             Barco barco = new Barco(barcoGuardado.Nombre, barcoGuardado.Tamanio, barcoGuardado.Impactos);
@@ -244,7 +246,7 @@ class Tablero
             tablero.barcos.Add(barco);
         }
 
-        // Marcamos las casillas que ya habian sido disparadas.
+        // Marco tambien las casillas que ya tenian disparo.
         foreach (CoordenadaGuardada coordenada in estado.CasillasDisparadas)
         {
             tablero.casillas[coordenada.Fila, coordenada.Columna].MarcarDisparo();

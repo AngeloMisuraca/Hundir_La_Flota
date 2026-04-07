@@ -1,6 +1,6 @@
 class EstadoPartida
 {
-    // Aqui guardamos todo lo necesario para reconstruir una partida.
+    // Aqui guardo todo lo necesario para reconstruir la partida.
     public JugadorGuardado Jugador { get; set; }
     public JugadorGuardado Cpu { get; set; }
     public TableroGuardado TableroJugador { get; set; }
@@ -12,7 +12,7 @@ class EstadoPartida
 
     public EstadoPartida()
     {
-        // Creamos objetos vacios para que la clase sea facil de serializar y deserializar.
+        // Dejo todo inicializado para que el JSON no de problemas.
         Jugador = new JugadorGuardado();
         Cpu = new JugadorGuardado();
         TableroJugador = new TableroGuardado();
@@ -26,7 +26,7 @@ class EstadoPartida
 
 class JugadorGuardado
 {
-    // Este DTO guarda solo los datos simples del jugador.
+    // Aqui solo guardo los datos simples del jugador.
     public string Nombre { get; set; }
     public int Disparos { get; set; }
     public int Aciertos { get; set; }
@@ -40,7 +40,7 @@ class JugadorGuardado
 
 class TableroGuardado
 {
-    // Aqui se guardan los barcos del tablero y las casillas ya disparadas.
+    // Aqui van los barcos y las casillas ya disparadas.
     public List<BarcoGuardado> Barcos { get; set; }
     public List<CoordenadaGuardada> CasillasDisparadas { get; set; }
 
@@ -53,7 +53,7 @@ class TableroGuardado
 
 class BarcoGuardado
 {
-    // Esta clase representa un barco guardado en el archivo JSON.
+    // Esto representa un barco dentro del JSON.
     public string Nombre { get; set; }
     public int Tamanio { get; set; }
     public int Impactos { get; set; }
@@ -68,7 +68,7 @@ class BarcoGuardado
 
 class CoordenadaGuardada
 {
-    // Una coordenada sencilla para guardar fila y columna.
+    // Esta clase solo guarda fila y columna.
     public int Fila { get; set; }
     public int Columna { get; set; }
 

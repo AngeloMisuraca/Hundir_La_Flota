@@ -1,2 +1,2 @@
-// Este record representa una fila del ranking de partidas ganadas.
+// Esto representa una entrada del ranking.
 record EntradaMarcador(string nombreJugador, int disparos, int aciertos, int fallos, double precision, double puntuacion, DateTime fecha);

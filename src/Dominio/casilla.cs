@@ -1,18 +1,18 @@
 public class Casilla
 {
-    // Posicion fija de la casilla dentro del tablero.
+    // Esta es la posicion de la casilla.
     public int Fila { get; }
     public int Columna { get; }
 
-    // Indica si ya se disparo a esta casilla.
+    // Esto dice si aqui ya se disparo.
     public bool Disparada { get; private set; }
 
-    // Guarda el barco que ocupa esta casilla. Si es null, esta vacia.
+    // Si hay barco, queda guardado aqui.
     public Barco? Barco { get; private set; }
 
     public Casilla(int fila, int columna, bool disparada)
     {
-        // Guardamos la posicion y el estado inicial.
+        // Guardo la posicion y si estaba disparada o no.
         Fila = fila;
         Columna = columna;
         Disparada = disparada;
@@ -20,7 +20,7 @@ public class Casilla
 
     public bool EstaVacia()
     {
-        // Devuelve true cuando no hay ningun barco en esta casilla.
+        // Si no hay barco, esta vacia.
         if (Barco == null)
         {
             return true;
@@ -33,7 +33,7 @@ public class Casilla
 
     public bool EsImpacto()
     {
-        // Hay impacto si se ha disparado y habia un barco en esa casilla.
+        // Solo es impacto si ya se disparo y habia barco.
         if (Disparada == true && Barco != null)
         {
             return true;
@@ -46,7 +46,7 @@ public class Casilla
 
     public bool EsAgua()
     {
-        // Hay agua si se ha disparado y la casilla estaba vacia.
+        // Solo es agua si ya se disparo y no habia barco.
         if (Disparada == true && Barco == null)
         {
             return true;
@@ -59,13 +59,13 @@ public class Casilla
 
     public void AsignarBarco(Barco barco)
     {
-        // Asociamos esta casilla a un barco.
+        // Le asigno el barco a esta casilla.
         Barco = barco;
     }
 
     public void MarcarDisparo()
     {
-        // Marcamos que esta casilla ya ha sido atacada.
+        // Marco que aqui ya se disparo.
         Disparada = true;
     }
 }

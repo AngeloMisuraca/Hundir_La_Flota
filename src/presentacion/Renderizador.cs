@@ -639,7 +639,7 @@ class Renderizador
     void EsperarResultado()
     {
         // Pausa de 2 segundos para leer el resultado del disparo.
-        Thread.Sleep(2000);
+        Thread.Sleep(1000);
     }
 
     bool EsCasillaPreview(int fila, int columna, int filaPreview, int columnaPreview, int tamanio, bool esHorizontalPreview, bool mostrarPreview)

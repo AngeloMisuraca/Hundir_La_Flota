@@ -1,20 +1,20 @@
 public class Barco
 {
-    // Nombre del barco, por ejemplo "Destructor".
+    // Nombre del barco.
     public string Nombre { get; }
 
-    // Numero de casillas que ocupa el barco.
+    // Cuantas casillas ocupa.
     public int Tamanio { get; }
 
-    // Impactos recibidos hasta ahora.
+    // Impactos que lleva encima.
     public int Impactos { get; private set; }
 
-    // Casillas del tablero que ocupa este barco.
+    // Casillas donde esta colocado.
     public List<Casilla> Casillas { get; }
 
     public Barco(string nombre, int tamano, int impactos)
     {
-        // Guardamos los datos basicos del barco.
+        // Guardo lo basico del barco.
         Nombre = nombre;
         Tamanio = tamano;
         Impactos = impactos;
@@ -23,13 +23,13 @@ public class Barco
 
     public void RecibirImpacto()
     {
-        // Cada disparo acertado suma un impacto.
+        // Cada impacto suma uno.
         Impactos++;
     }
 
     public bool EstaHundido()
     {
-        // Un barco esta hundido cuando recibe tantos impactos como casillas ocupa.
+        // Si los impactos llegan al tamano, esta hundido.
         return Impactos >= Tamanio;
     }
 }

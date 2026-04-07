@@ -2,7 +2,7 @@ using System.Text.Json;
 
 class GestorGuardado
 {
-    // Estas rutas apuntan al archivo donde se guarda la partida.
+    // Aqui guardo las rutas del archivo de partida.
     string carpetaDatos;
     string rutaGuardado;
 
@@ -14,13 +14,13 @@ class GestorGuardado
 
     public void Guardar(EstadoPartida estado)
     {
-        // Creamos la carpeta si todavia no existe.
+        // Si la carpeta no existe, la creo.
         if (Directory.Exists(carpetaDatos) == false)
         {
             Directory.CreateDirectory(carpetaDatos);
         }
 
-        // Convertimos el estado a JSON y lo escribimos en disco.
+        // Paso el estado a JSON y lo guardo.
         JsonSerializerOptions opciones = new JsonSerializerOptions();
         opciones.WriteIndented = true;
 
@@ -30,7 +30,7 @@ class GestorGuardado
 
     public EstadoPartida? Cargar()
     {
-        // Si no hay partida guardada, devolvemos null.
+        // Si no hay archivo, devuelvo null.
         if (ExistePartidaGuardada() == false)
         {
             return null;
@@ -44,14 +44,14 @@ class GestorGuardado
         }
         catch
         {
-            // Si el archivo falla o esta corrupto, devolvemos null para evitar que el juego se rompa.
+            // Si el archivo falla, devuelvo null y ya esta.
             return null;
         }
     }
 
     public void EliminarGuardado()
     {
-        // Borramos el archivo solo si existe.
+        // Borro el archivo si existe.
         if (File.Exists(rutaGuardado))
         {
             File.Delete(rutaGuardado);
@@ -60,14 +60,13 @@ class GestorGuardado
 
     public void EliminarTodasLasPartidas()
     {
-        // En este proyecto solo usamos un archivo de partida, asi que eliminar todas
-        // las partidas significa borrar ese archivo si existe.
+        // Aqui solo hay una partida guardada, asi que borrar todo es borrar ese archivo.
         EliminarGuardado();
     }
 
     public bool ExistePartidaGuardada()
     {
-        // Devuelve true si el archivo de guardado esta en disco.
+        // Devuelve true si el guardado existe.
         return File.Exists(rutaGuardado);
     }
 }

@@ -1,6 +1,6 @@
 class Colores
 {
-    // Colores usados para dibujar el juego en consola.
+    // Estos son los colores que usa la consola.
     public static ConsoleColor casillaVacia = ConsoleColor.DarkGray;
     public static ConsoleColor barcoPropio = ConsoleColor.Green;
     public static ConsoleColor agua = ConsoleColor.Blue;

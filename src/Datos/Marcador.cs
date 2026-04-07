@@ -2,14 +2,14 @@ using System.Text.Json;
 
 class Marcador
 {
-    // Guardamos la lista de partidas ganadas y la ruta del archivo del ranking.
+    // Aqui guardo el ranking y su ruta.
     List<EntradaMarcador> entradas;
     string carpetaDatos;
     string rutaMarcador;
 
     public Marcador()
     {
-        // Al crear el marcador, intentamos cargar las entradas ya guardadas.
+        // Nada mas crearlo, intento cargar lo que ya habia.
         entradas = new List<EntradaMarcador>();
         carpetaDatos = Path.Combine(Directory.GetCurrentDirectory(), "datos");
         rutaMarcador = Path.Combine(carpetaDatos, "marcador.json");
@@ -18,13 +18,13 @@ class Marcador
 
     public List<EntradaMarcador> ObtenerEntradas()
     {
-        // Devolvemos la lista actual del ranking.
+        // Devuelvo el ranking actual.
         return entradas;
     }
 
     public void AgregarEntrada(EntradaMarcador entrada)
     {
-        // Añadimos la nueva partida, ordenamos y dejamos solo el top 10.
+        // Meto la partida, ordeno y dejo solo las 10 mejores.
         entradas.Add(entrada);
         OrdenarEntradas();
         LimitarTop10();
@@ -33,13 +33,13 @@ class Marcador
 
     public void Guardar()
     {
-        // Creamos la carpeta si hace falta.
+        // Si hace falta, creo la carpeta.
         if (Directory.Exists(carpetaDatos) == false)
         {
             Directory.CreateDirectory(carpetaDatos);
         }
 
-        // Guardamos el ranking en formato JSON.
+        // Guardo el ranking en JSON.
         JsonSerializerOptions opciones = new JsonSerializerOptions();
         opciones.WriteIndented = true;
 
@@ -49,10 +49,10 @@ class Marcador
 
     public void Cargar()
     {
-        // Limpiamos la lista antes de volver a cargar.
+        // Limpio antes de volver a cargar.
         entradas.Clear();
 
-        // Si el archivo no existe, dejamos el marcador vacio.
+        // Si el archivo no existe, se queda vacio.
         if (File.Exists(rutaMarcador) == false)
         {
             return;
@@ -72,14 +72,14 @@ class Marcador
         }
         catch
         {
-            // Si el JSON esta roto, empezamos con el marcador vacio.
+            // Si el JSON falla, empiezo con el ranking vacio.
             entradas = new List<EntradaMarcador>();
         }
     }
 
     void OrdenarEntradas()
     {
-        // El ranking se ordena por puntuacion de mayor a menor.
+        // Ordeno por puntuacion de mayor a menor.
         entradas = entradas
             .OrderByDescending(entrada => entrada.puntuacion)
             .ThenBy(entrada => entrada.fecha)
@@ -88,7 +88,7 @@ class Marcador
 
     void LimitarTop10()
     {
-        // Si hay mas de 10 resultados, nos quedamos solo con los 10 mejores.
+        // Si hay mas de 10, me quedo con los 10 mejores.
         if (entradas.Count > 10)
         {
             entradas = entradas.Take(10).ToList();

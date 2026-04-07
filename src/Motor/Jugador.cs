@@ -1,6 +1,6 @@
 class Jugador
 {
-    // Datos basicos y estadisticas del jugador.
+    // Aqui guardo los datos y estadisticas del jugador.
     string nombre;
     Tablero tablero;
     int disparos;
@@ -58,7 +58,7 @@ class Jugador
 
     public Jugador(string nombre, int disparos, int aciertos, int fallos, double precision, Tablero tablero)
     {
-        // Guardamos todos los datos recibidos.
+        // Guardo los datos que me llegan.
         this.nombre = nombre;
         this.disparos = disparos;
         this.aciertos = aciertos;
@@ -69,21 +69,21 @@ class Jugador
 
     public Jugador(string nombre, Tablero tablero) : this(nombre, 0, 0, 0, 0, tablero)
     {
-        // Este constructor crea un jugador nuevo con estadisticas a cero.
+        // Este constructor deja al jugador nuevo desde cero.
     }
 
     public void RegistrarDisparo(ResultadoDisparo resultado)
     {
-        // Si el disparo no cuenta porque estaba repetido, no tocamos estadisticas.
+        // Si el disparo estaba repetido, no cuento nada.
         if (resultado == ResultadoDisparo.YaDisparado)
         {
             return;
         }
 
-        // Cada disparo valido suma al total.
+        // Cada disparo valido suma uno.
         disparos++;
 
-        // Sumamos aciertos o fallos segun el resultado.
+        // Aqui sumo acierto o fallo segun toque.
         if (resultado == ResultadoDisparo.Impacto || resultado == ResultadoDisparo.Hundido)
         {
             aciertos++;
@@ -98,7 +98,7 @@ class Jugador
 
     void ActualizarPrecision()
     {
-        // La precision es el porcentaje de aciertos sobre el total de disparos.
+        // La precision sale de los aciertos sobre los disparos.
         if (disparos == 0)
         {
             precision = 0;

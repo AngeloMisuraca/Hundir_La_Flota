@@ -2,10 +2,10 @@ class Flota
 {
     public static List<Barco> CrearFlota()
     {
-        // Esta lista define la flota completa del juego.
+        // Aqui monto la flota completa.
         List<Barco> barcos = new List<Barco>();
 
-        // Creamos un barco de cada tipo.
+        // Creo un barco de cada tipo.
         barcos.Add(new Barco("Portaaviones", 5, 0));
         barcos.Add(new Barco("Acorazado", 4, 0));
         barcos.Add(new Barco("Destructor", 3, 0));
